@@ -1,0 +1,10 @@
+{
+  "_comentario": "Strings que el PATCH puede sobreescribir en memoria (Hot Update).",
+  "_instruccion": "Edita los valores. La app los aplica en el próximo arranque post-PATCH.",
+
+  "tagline_app":          "Gestor de Frecuencias Bioacústicas",
+  "label_historial":      "Historial",
+  "label_favoritos":      "Favoritos",
+  "label_comprar_tokens": "COMPRAR TOKENS",
+  "banner_bienvenida":    "Bienvenido a BioFreq — Donde la ciencia suena."
+}
