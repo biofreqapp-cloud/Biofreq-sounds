@@ -1,0 +1,18 @@
+{
+  "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
+  "_instruccion": "Edita 'version' y sube. La app lo lee al arrancar y reacciona.",
+
+  "version": "2.8.0",
+
+  "apk_url": "https://github.com/TU_USUARIO/TU_REPO/releases/download/v2.8.0/biofreq.apk",
+
+  "changelog_es": "Nueva función disponible: Alembique Digital con búsqueda por nombre y protocolo CRISPR. Toca aquí para actualizar cuando desees.",
+
+  "config_url": "https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/remote_config.json",
+
+  "_reglas": {
+    "PATCH (2.8.X)": "Solo sube Z. App descarga remote_config.json en background. Usuario no se entera.",
+    "MINOR (2.Y.z)": "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
+    "MAJOR (X.y.z)": "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con botón de descarga de APK desde apk_url."
+  }
+}
