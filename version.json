@@ -2,7 +2,7 @@
   "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y sube. La app lo lee al arrancar y reacciona.",
 
-  "version": "2.8.0",
+  "version": "2.9.0",
 
   "apk_url": "https://github.com/biofreqapp-cloud/Biofreq-sounds/releases/download/2.8.0/app-release.apk",
 
