@@ -1,14 +1,14 @@
 {
   "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "2.10.0",
-  "build_number": 50,
-  "apk_url": "https://github.com/biofreqapp-cloud/Biofreq-sounds/releases/download/2.10.0/app-release.apk",
-  "changelog_es": "v2.10.0+50: Activación de Resonancia Háptica (Vibración) y corrección de enlace de descarga.",
+  "version": "2.10.1",
+  "build_number": 51,
+  "apk_url": "https://github.com/biofreqapp-cloud/Biofreq-sounds/releases/download/2.10.1/app-release.apk",
+  "changelog_es": "v2.10.1+51: SSL Pinning en conexión con el Alembique — seguridad reforzada.",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
   "_reglas": {
-    "PATCH build (2.10.0 +50→+51)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
-    "PATCH semver (2.10.0→2.10.1)":  "Solo sube Z. Misma reacción silenciosa.",
+    "PATCH build (2.10.1 +51→+52)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
+    "PATCH semver (2.10.1→2.10.2)":  "Solo sube Z. Misma reacción silenciosa.",
     "MINOR (2.Y.z)":                  "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
     "MAJOR (X.y.z)":                  "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con botón de descarga de APK desde apk_url."
   }
