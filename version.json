@@ -1,9 +1,9 @@
 {
   "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "2.10.1",
+  "version": "2.11.0",
   "build_number": 51,
-  "apk_url": "https://github.com/biofreqapp-cloud/Biofreq-sounds/releases/download/2.10.1/app-release.apk",
+  "apk_url": "https://github.com/biofreqapp-cloud/Biofreq-sounds/releases/download/2.11.0/app-release.apk",
   "changelog_es": "v2.10.1+51: SSL Pinning en conexión con el Alembique — seguridad reforzada.",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
   "_reglas": {
