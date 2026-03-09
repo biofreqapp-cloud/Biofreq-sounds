@@ -1,8 +1,8 @@
 {
   "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "2.12.10",
-  "build_number": 69,
+  "version": "2.12.11",
+  "build_number": 70,
   "apk_url": "https://drive.google.com/uc?export=download&id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u",
   "changelog_es": "v2.12.8+67: Bio-Scanner.",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
