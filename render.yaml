@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: biofreq-servidor
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn servidor_local:app --bind 0.0.0.0:$PORT --workers 1 --timeout 60
+    envVars:
+      - key: MP_ACCESS_TOKEN
+        sync: false          # lo ingresas manualmente en Render dashboard
+      - key: MP_WEBHOOK_SECRET
+        sync: false          # lo ingresas manualmente en Render dashboard
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO_OWNER
+        value: biofreqapp-cloud
+      - key: GITHUB_REPO_NAME
+        value: Biofreq-sounds
+      - key: GITHUB_BRANCH
+        value: main
+      - key: MODO_INDUSTRIAL
+        value: "true"
+      - key: BYPASS_AUTH
+        value: "false"       # false en producción
+      - key: AUTOSUBIR_GITHUB
+        value: "true"
