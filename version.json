@@ -1,15 +1,15 @@
 ﻿{
-  "_comentario": "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
-  "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "4.0.15",
-  "build_number": 2096,
-  "apk_url": "https://drive.google.com/uc?export=download&id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u",
-  "changelog_es": "v4.0.15+2096: codex powerup.",
-  "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
-  "_reglas": {
-    "PATCH build (2.10.1 +51→+52)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
-    "PATCH semver (2.10.1→2.10.2)": "Solo sube Z. Misma reacción silenciosa.",
-    "MINOR (2.Y.z)": "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
-    "MAJOR (X.y.z)": "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con botón de descarga de APK desde apk_url."
-  }
+    "_comentario":  "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
+    "_instruccion":  "Edita \u0027version\u0027 y/o \u0027build_number\u0027 y sube. La app lo lee al arrancar y reacciona.",
+    "version":  "4.0.19",
+    "build_number":  2100,
+    "apk_url":  "https://drive.google.com/uc?export=download\u0026id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u",
+    "changelog_es":  "v4.0.19+2100: version.json actualizado. El APK release se sincroniza aparte por Google Drive for Desktop.",
+    "config_url":  "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
+    "_reglas":  {
+                    "PATCH build (2.10.1 +51→+52)":  "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
+                    "PATCH semver (2.10.1→2.10.2)":  "Solo sube Z. Misma reacción silenciosa.",
+                    "MINOR (2.Y.z)":  "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
+                    "MAJOR (X.y.z)":  "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con botón de descarga de APK desde apk_url."
+                }
 }
