@@ -3,7 +3,7 @@
     "_instruccion":  "Edita \u0027version\u0027 y/o \u0027build_number\u0027 y sube. La app lo lee al arrancar y reacciona.",
     "version":  "4.0.19",
     "build_number":  2100,
-    "apk_url":  "https://drive.google.com/uc?export=download\u0026id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u",
+    "apk_url":  "https://drive.usercontent.google.com/download?id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u\u0026export=download\u0026confirm=t",
     "changelog_es":  "v4.0.19+2100: version.json actualizado. El APK release se sincroniza aparte por Google Drive for Desktop.",
     "config_url":  "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
     "_reglas":  {
