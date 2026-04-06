@@ -1,10 +1,10 @@
 ﻿{
     "_comentario":  "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
     "_instruccion":  "Edita \u0027version\u0027 y/o \u0027build_number\u0027 y sube. La app lo lee al arrancar y reacciona.",
-    "version":  "4.0.15",
-    "build_number":  2096,
+    "version":  "4.0.25",
+    "build_number":  2106,
     "apk_url":  "https://drive.usercontent.google.com/download?id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u\u0026export=download\u0026confirm=t",
-    "changelog_es":  "v4.0.15+2096: se mantiene la ultima APK publica verificable mientras se corrige la publicacion en Drive.",
+    "changelog_es":  "v4.0.25+2106: Actualizaciones varias.",
     "config_url":  "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
     "_reglas":  {
                     "PATCH build (2.10.1 +51→+52)":  "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
