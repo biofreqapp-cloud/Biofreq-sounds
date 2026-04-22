@@ -1,4 +1,4 @@
-﻿{
+{
   "_comentario": "Este archivo vive en la raiz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
   "version": "4.0.42",
