@@ -1,10 +1,10 @@
 {
   "_comentario": "Este archivo vive en la raiz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "4.0.44",
-  "build_number": 2129,
+  "version": "4.0.45",
+  "build_number": 2130,
   "apk_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/app-release.apk",
-  "changelog_es": "4.0.44+2129 - compras restauradas en core y recetas activas sin bloqueo",
+  "changelog_es": "4.0.45+2130 - correccion integral de textos mojibake en core y consultorio",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
   "_reglas": {
     "PATCH build (2.10.1 +51→+52)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
