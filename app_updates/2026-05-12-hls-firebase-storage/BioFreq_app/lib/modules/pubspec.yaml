@@ -8,10 +8,11 @@ publish_to: 'none'
 # nombre_version → 2.11.0  (MINOR: 4 mejoras críticas de backend y experiencia)
 # versionCode    → 58
 #
-# Cambios recientes:
-#   1. Cobro híbrido por `costo_uso`:
+# Cambios en 2.11.0+58:
+#   1. Cobro Híbrido ('Taxímetro'):
+#      duracion_seg en Firestore actúa como alias de precio manual.
 #      > 0 → precio fijo override (ej: 70000 tokens).
-#      == 0 → precio automático: duración real del audio en segundos.
+#      == 0 → precio automático: duración real × tarifaBasePorSeg (100 t/s).
 #
 #   2. Vibración Sincronizada Continua:
 #      Loop háptico real vía repeat: 0 (fix: repeat: -1 no loopea en Android).
@@ -29,7 +30,7 @@ publish_to: 'none'
 #
 # Sin dependencias nuevas — todas las mejoras usan paquetes ya existentes.
 # ─────────────────────────────────────────────────────────────────────────────
-version: 4.0.51+2136
+version: 4.0.8+90
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -43,13 +44,12 @@ dependencies:
   cloud_firestore: ^5.4.4
   google_sign_in: 6.2.1   # Fijado — v7.x tiene API incompatible
 
-  just_audio: ^0.10.5      # Streaming HLS/MP3 con precarga real
-  audio_session: ^0.2.3    # Configuracion nativa de sesion de audio
+  audioplayers: ^6.1.0
+  sentry_flutter: ^9.15.0        # Monitoreo de errores en producción
   video_player: ^2.8.3
   chewie: ^1.7.4
 
   dio: ^5.4.0
-  crypto: ^3.0.6                  # SHA-256 para validar integridad del APK descargado
   url_launcher: ^6.3.0
   flutter_custom_tabs: ^2.4.0     # MP Checkout Pro — Custom Tabs nativo
   cupertino_icons: ^1.0.6
@@ -67,7 +67,6 @@ dependencies:
 
   shared_preferences: ^2.2.0      # Login y ajustes locales
   flutter_colorpicker: ^1.1.0     # Bio-Scanner y marketing — selector de colores
-  device_info_plus: ^11.5.0       # Sentry — contexto preciso por OEM/modelo/API en fallos de instalacion
   image_picker: ^1.0.0            # PS — foto de perfil profesional
   vibration: ^2.0.0               # Mejora 2: loop háptico sincronizado (repeat: 0)
   open_file: ^3.3.2               # Abre APK con el instalador nativo de Android (sin dialog "abrir con")
@@ -83,7 +82,6 @@ dependencies:
   #     (cuando la app está abierta). Sin esto las pushes no se ven en foreground.
   firebase_messaging: ^15.1.3
   flutter_local_notifications: ^18.0.1
-  sentry_flutter: 9.16.1
 
 dev_dependencies:
   flutter_test:
@@ -101,3 +99,9 @@ flutter:
     # ════════════════════════════════════════════════════════════════
     - assets/logo.png
     - assets/certs/cert.pem    # Certificado SSL del Alembique (CN=biofreq.local)
+# ── Sentry — configuración del plugin de subida de símbolos ──────────────────
+sentry:
+  upload_debug_symbols: true
+  upload_source_maps: false
+  project: biofreq-app
+  org: biofreq

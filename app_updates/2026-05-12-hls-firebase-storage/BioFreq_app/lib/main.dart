@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:just_audio/just_audio.dart' as ja;
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as custom_tabs;
@@ -16,13 +16,13 @@ import 'dart:math';
 import 'dart:async';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/rendering.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -50,6 +50,7 @@ part 'modules/sounds.dart';
 part 'modules/account.dart';
 part 'modules/admin.dart';
 part 'modules/clinica.dart';
+part 'modules/marketing.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SISTEMA DE COLORES ACCESIBLE - WCAG 2.1 AA
@@ -96,27 +97,65 @@ class AccesibleTheme {
         background: AccesibleColors.backgroundDark,
       ),
       textTheme: const TextTheme(
-        displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.bold, color: AccesibleColors.textPrimary),
-        displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: AccesibleColors.textPrimary),
-        displaySmall: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: AccesibleColors.textPrimary),
-        headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w600, color: AccesibleColors.textPrimary),
-        headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: AccesibleColors.textPrimary),
-        headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: AccesibleColors.textPrimary),
-        titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: AccesibleColors.textPrimary),
-        titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: AccesibleColors.textPrimary),
-        titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AccesibleColors.textSecondary),
+        displayLarge: TextStyle(
+            fontSize: 57,
+            fontWeight: FontWeight.bold,
+            color: AccesibleColors.textPrimary),
+        displayMedium: TextStyle(
+            fontSize: 45,
+            fontWeight: FontWeight.bold,
+            color: AccesibleColors.textPrimary),
+        displaySmall: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: AccesibleColors.textPrimary),
+        headlineLarge: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: AccesibleColors.textPrimary),
+        headlineMedium: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w600,
+            color: AccesibleColors.textPrimary),
+        headlineSmall: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: AccesibleColors.textPrimary),
+        titleLarge: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textPrimary),
+        titleMedium: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textPrimary),
+        titleSmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textSecondary),
         bodyLarge: TextStyle(fontSize: 16, color: AccesibleColors.textPrimary),
         bodyMedium: TextStyle(fontSize: 14, color: AccesibleColors.textPrimary),
-        bodySmall: TextStyle(fontSize: 12, color: AccesibleColors.textSecondary),
-        labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AccesibleColors.textPrimary),
-        labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: AccesibleColors.textSecondary),
-        labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AccesibleColors.textDisabled),
+        bodySmall:
+            TextStyle(fontSize: 12, color: AccesibleColors.textSecondary),
+        labelLarge: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textPrimary),
+        labelMedium: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textSecondary),
+        labelSmall: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
+            color: AccesibleColors.textDisabled),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 48),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
@@ -124,8 +163,10 @@ class AccesibleTheme {
         style: OutlinedButton.styleFrom(
           minimumSize: const Size(double.infinity, 48),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          side: const BorderSide(color: AccesibleColors.primaryLight, width: 1.5),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          side:
+              const BorderSide(color: AccesibleColors.primaryLight, width: 1.5),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
@@ -133,7 +174,8 @@ class AccesibleTheme {
         style: TextButton.styleFrom(
           minimumSize: const Size(double.infinity, 48),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
@@ -150,7 +192,8 @@ class AccesibleTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AccesibleColors.primaryAccent, width: 2),
+          borderSide:
+              const BorderSide(color: AccesibleColors.primaryAccent, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -170,13 +213,20 @@ class AccesibleTheme {
         foregroundColor: AccesibleColors.textPrimary,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AccesibleColors.textPrimary),
+        titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: AccesibleColors.textPrimary),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: AccesibleColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        titleTextStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AccesibleColors.textPrimary),
-        contentTextStyle: const TextStyle(fontSize: 16, color: AccesibleColors.textSecondary),
+        titleTextStyle: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: AccesibleColors.textPrimary),
+        contentTextStyle:
+            const TextStyle(fontSize: 16, color: AccesibleColors.textSecondary),
       ),
       snackBarTheme: const SnackBarThemeData(
         backgroundColor: AccesibleColors.surfaceDark,
@@ -334,7 +384,9 @@ class _BioFreqAppState extends State<BioFreqApp> {
   Future<void> _initFCM() async {
     final messaging = FirebaseMessaging.instance;
     final settings = await messaging.requestPermission(
-      alert: true, badge: true, sound: true,
+      alert: true,
+      badge: true,
+      sound: true,
     );
     if (settings.authorizationStatus == AuthorizationStatus.denied) {
       debugPrint('[FCM] Permiso denegado por el usuario');
@@ -433,9 +485,17 @@ class _BioFreqAppState extends State<BioFreqApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('es'), Locale('en'), Locale('pt'), Locale('fr'),
-          Locale('de'), Locale('it'), Locale('zh'), Locale('ja'),
-          Locale('ko'), Locale('ar'), Locale('ru'),
+          Locale('es'),
+          Locale('en'),
+          Locale('pt'),
+          Locale('fr'),
+          Locale('de'),
+          Locale('it'),
+          Locale('zh'),
+          Locale('ja'),
+          Locale('ko'),
+          Locale('ar'),
+          Locale('ru'),
         ],
         theme: AccesibleTheme.darkTheme(AppTheme().colorPrimario),
         home: _buildHome(),
@@ -460,6 +520,8 @@ class _BioFreqAppState extends State<BioFreqApp> {
                 _MinorUpdateBanner(
                   changelog: _remoteVersion?.changelogEs ??
                       'Hay una versión más reciente disponible. Puedes actualizar cuando quieras.',
+                  apkUrl: AppUpdateConfig.resolve(_remoteVersion?.apkUrl),
+                  apkSha256: _remoteVersion?.apkSha256,
                   onDismiss: () => setState(() => _minorDismissed = true),
                 ),
               Expanded(
@@ -472,11 +534,8 @@ class _BioFreqAppState extends State<BioFreqApp> {
         ),
         if (_showMajorOverlay)
           _MajorUpdateOverlay(
-            apkUrl: (_remoteVersion?.apkUrl != null &&
-                    _remoteVersion!.apkUrl!.isNotEmpty &&
-                    !_remoteVersion!.apkUrl!.contains('onrender.com'))
-                ? _remoteVersion!.apkUrl!
-                : 'https://drive.google.com/uc?export=download&id=1D11vGNw4fFdcdee9Sy6cPjdhtnx5y22u',
+            apkUrl: AppUpdateConfig.resolve(_remoteVersion?.apkUrl),
+            apkSha256: _remoteVersion?.apkSha256,
           ),
       ],
     );
@@ -487,10 +546,49 @@ class _BioFreqAppState extends State<BioFreqApp> {
 // BANNER MINOR
 // ═══════════════════════════════════════════════════════════════════════════
 
-class _MinorUpdateBanner extends StatelessWidget {
+class _MinorUpdateBanner extends StatefulWidget {
   final String changelog;
+  final String apkUrl;
+  final String? apkSha256;
   final VoidCallback onDismiss;
-  const _MinorUpdateBanner({required this.changelog, required this.onDismiss});
+  const _MinorUpdateBanner({
+    required this.changelog,
+    required this.apkUrl,
+    this.apkSha256,
+    required this.onDismiss,
+  });
+
+  @override
+  State<_MinorUpdateBanner> createState() => _MinorUpdateBannerState();
+}
+
+class _MinorUpdateBannerState extends State<_MinorUpdateBanner> {
+  bool _isUpdating = false;
+  double _progress = 0;
+
+  Future<void> _actualizar() async {
+    if (widget.apkUrl.isEmpty) return;
+    setState(() {
+      _isUpdating = true;
+      _progress = 0;
+    });
+    final ok = await instalarActualizacionDesdeUrl(
+      context,
+      widget.apkUrl,
+      expectedSha256: widget.apkSha256,
+      onProgress: (progress) {
+        if (!mounted) return;
+        setState(() {
+          _progress = progress;
+          if (progress >= 1) _isUpdating = false;
+        });
+      },
+    );
+    if (!mounted) return;
+    if (!ok || !Platform.isAndroid) {
+      setState(() => _isUpdating = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -515,81 +613,123 @@ class _MinorUpdateBanner extends StatelessWidget {
         ),
         child: SafeArea(
           bottom: false,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Icon(Icons.info_outline_rounded, color: Colors.white, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  changelog,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    height: 1.3,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () async {
-                    final uri = Uri.parse(
-                        'https://play.google.com/store/apps/details?id=com.biofreq.app');
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri, mode: LaunchMode.externalApplication);
-                    }
-                  },
-                  borderRadius: BorderRadius.circular(24),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.download_rounded, color: Colors.white, size: 16),
-                        SizedBox(width: 4),
-                        Text(
-                          'ACTUALIZAR',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ],
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Icon(
+                      Icons.info_outline_rounded,
+                      color: Colors.white,
+                      size: 20,
                     ),
                   ),
-                ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      widget.changelog,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        height: 1.3,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: _isUpdating ? null : _actualizar,
+                      borderRadius: BorderRadius.circular(24),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        child: _isUpdating
+                            ? Text(
+                                _progress > 0 && _progress < 1
+                                    ? '$_progressLabel%'
+                                    : 'DESCARGANDO',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  letterSpacing: 0.5,
+                                ),
+                              )
+                            : const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.download_rounded,
+                                    color: Colors.white,
+                                    size: 16,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'ACTUALIZAR',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: widget.onDismiss,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: const Icon(
+                          Icons.close_rounded,
+                          color: Colors.white70,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: onDismiss,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Icon(Icons.close_rounded, color: Colors.white70, size: 18),
+              if (_isUpdating || _progress > 0) ...[
+                const SizedBox(height: 10),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(99),
+                  child: LinearProgressIndicator(
+                    minHeight: 4,
+                    value: _progress > 0 && _progress < 1 ? _progress : null,
+                    backgroundColor: Colors.white.withValues(alpha: 0.12),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
-              ),
+              ],
             ],
           ),
         ),
       ),
     );
   }
+
+  String get _progressLabel =>
+      (_progress * 100).clamp(0, 100).round().toString();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -598,29 +738,47 @@ class _MinorUpdateBanner extends StatelessWidget {
 
 class _MajorUpdateOverlay extends StatefulWidget {
   final String apkUrl;
-  const _MajorUpdateOverlay({required this.apkUrl});
+  final String? apkSha256;
+  const _MajorUpdateOverlay({
+    required this.apkUrl,
+    this.apkSha256,
+  });
   @override
   State<_MajorUpdateOverlay> createState() => _MajorUpdateOverlayState();
 }
 
 class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
   bool _isDownloading = false;
+  double _progress = 0;
 
   Future<void> _descargarEInstalar() async {
     if (widget.apkUrl.isEmpty) {
       _showSnackBar('URL de actualización no disponible.');
       return;
     }
-    setState(() => _isDownloading = true);
+    setState(() {
+      _isDownloading = true;
+      _progress = 0;
+    });
     try {
-      final Uri url = Uri.parse(widget.apkUrl);
-      if (!await launchUrl(url, mode: LaunchMode.platformDefault)) {
-        throw Exception('No se pudo abrir el enlace de descarga');
+      final ok = await instalarActualizacionDesdeUrl(
+        context,
+        widget.apkUrl,
+        expectedSha256: widget.apkSha256,
+        onProgress: (progress) {
+          if (!mounted) return;
+          setState(() {
+            _progress = progress;
+            if (progress >= 1) _isDownloading = false;
+          });
+        },
+      );
+      if (!mounted) return;
+      if (!ok || !Platform.isAndroid) {
+        setState(() => _isDownloading = false);
       }
     } catch (e) {
       if (mounted) _showSnackBar('Error al abrir descarga: $e');
-    } finally {
-      if (mounted) setState(() => _isDownloading = false);
     }
   }
 
@@ -660,7 +818,10 @@ class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: const LinearGradient(
-                        colors: [AccesibleColors.warning, AccesibleColors.error],
+                        colors: [
+                          AccesibleColors.warning,
+                          AccesibleColors.error
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -672,7 +833,8 @@ class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
                         ),
                       ],
                     ),
-                    child: const Icon(Icons.system_update_alt_rounded, color: Colors.white, size: 56),
+                    child: const Icon(Icons.system_update_alt_rounded,
+                        color: Colors.white, size: 56),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -703,7 +865,8 @@ class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
                   decoration: BoxDecoration(
                     color: AccesibleColors.surfaceDark,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AccesibleColors.warning.withValues(alpha: 0.3)),
+                    border: Border.all(
+                        color: AccesibleColors.warning.withValues(alpha: 0.3)),
                   ),
                   child: const Text(
                     'Esta versión ya no es compatible con nuestros servicios. '
@@ -727,15 +890,20 @@ class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
                       foregroundColor: Colors.black,
                       disabledBackgroundColor: AccesibleColors.textDisabled,
                       elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.8),
                     ),
                     onPressed: _isDownloading ? null : _descargarEInstalar,
                     child: _isDownloading
                         ? const SizedBox(
                             width: 24,
                             height: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: Colors.black),
                           )
                         : const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -747,10 +915,36 @@ class _MajorUpdateOverlayState extends State<_MajorUpdateOverlay> {
                           ),
                   ),
                 ),
+                if (_isDownloading || _progress > 0) ...[
+                  const SizedBox(height: 14),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(999),
+                    child: LinearProgressIndicator(
+                      minHeight: 6,
+                      value: _progress > 0 && _progress < 1 ? _progress : null,
+                      backgroundColor: Colors.white.withValues(alpha: 0.12),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AccesibleColors.warningLight,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    _progress > 0 && _progress < 1
+                        ? 'Descargando ${(_progress * 100).round()}%'
+                        : 'Android continuará la descarga aunque bloquees el teléfono.',
+                    style: TextStyle(
+                      color: AccesibleColors.textSecondary,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
                 const SizedBox(height: 16),
                 Text(
-                  'La descarga comenzará automáticamente',
-                  style: TextStyle(color: AccesibleColors.textDisabled, fontSize: 12),
+                  'La descarga quedará guardada en Descargas para instalar luego.',
+                  style: TextStyle(
+                      color: AccesibleColors.textDisabled, fontSize: 12),
                 ),
               ],
             ),
@@ -806,7 +1000,10 @@ class AccesibleButton extends StatelessWidget {
 
   Widget _buildChild() {
     if (isLoading) {
-      return const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2));
+      return const SizedBox(
+          width: 24,
+          height: 24,
+          child: CircularProgressIndicator(strokeWidth: 2));
     }
     if (icon != null) {
       return Row(mainAxisSize: MainAxisSize.min, children: [
@@ -840,7 +1037,8 @@ class AccesibleCard extends StatelessWidget {
           ? InkWell(
               onTap: onTap,
               borderRadius: BorderRadius.circular(16),
-              child: Padding(padding: padding ?? const EdgeInsets.all(16), child: child),
+              child: Padding(
+                  padding: padding ?? const EdgeInsets.all(16), child: child),
             )
           : Padding(padding: padding ?? const EdgeInsets.all(16), child: child),
     );
