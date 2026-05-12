@@ -20,6 +20,8 @@ This update bundle contains the BioFreq app files changed locally on 2026-05-12 
   - Restores the Android Gradle files required for Flutter builds.
 - `BioFreq_app/assets/logo.png`
   - Restores the asset declared in `pubspec.yaml`.
+- `BioFreq_app/android/app/src/main/res/mipmap-*/ic_launcher.png`
+  - Restores valid Android launcher PNGs so release resource compilation succeeds.
 - `BioFreq_app/tools/hls_migrate_firebase.py`
   - Segments MP3/WAV into 2-second HLS with ffmpeg.
   - Uploads manifest and segments to Firebase Storage.
@@ -43,10 +45,12 @@ The original `url_sonido` remains in Firestore as fallback.
 - `python tools/hls_migrate_firebase.py --input C:\Biofreq_local\CURRENT\_tmp_Biofreq_sounds\adara.mp3 --sound-id codex-dry-run-adara --dry-run`
 - `dart analyze lib/main.dart lib/modules/sounds.dart`
 - `flutter build apk --debug`
-- `aapt dump badging C:\Biofreq_local\CURRENT\APKS\BioFreq_4.0.50_2135_HLS_streaming_debug_20260512.apk`
+- `flutter build apk --release`
+- `aapt dump badging C:\Biofreq_local\CURRENT\APKS\BioFreq_4.0.50_2135_HLS_streaming_release_20260512.apk`
 
-Compiled APK:
+Compiled release APK:
 
 - `versionName`: `4.0.50`
 - `versionCode`: `2135`
-- Firebase Storage URL is published through `version.json` on `main`.
+- local path: `C:\Biofreq_local\CURRENT\APKS\BioFreq_4.0.50_2135_HLS_streaming_release_20260512.apk`
+- Firebase Storage release URL is published through `version.json` on `main`.
