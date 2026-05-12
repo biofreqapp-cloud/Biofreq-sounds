@@ -14,6 +14,12 @@ This update bundle contains the BioFreq app files changed locally on 2026-05-12 
 - `BioFreq_app/pubspec.yaml` and `BioFreq_app/pubspec.lock`
   - Adds `just_audio` and `audio_session`.
   - Removes `audioplayers`.
+  - Bumps the compiled app to `4.0.50+2135`.
+- `BioFreq_app/android/settings.gradle.kts`, `BioFreq_app/android/app/build.gradle.kts`,
+  and `BioFreq_app/android/app/google-services.json`
+  - Restores the Android Gradle files required for Flutter builds.
+- `BioFreq_app/assets/logo.png`
+  - Restores the asset declared in `pubspec.yaml`.
 - `BioFreq_app/tools/hls_migrate_firebase.py`
   - Segments MP3/WAV into 2-second HLS with ffmpeg.
   - Uploads manifest and segments to Firebase Storage.
@@ -36,9 +42,11 @@ The original `url_sonido` remains in Firestore as fallback.
 - `python -m py_compile tools/hls_migrate_firebase.py`
 - `python tools/hls_migrate_firebase.py --input C:\Biofreq_local\CURRENT\_tmp_Biofreq_sounds\adara.mp3 --sound-id codex-dry-run-adara --dry-run`
 - `dart analyze lib/main.dart lib/modules/sounds.dart`
+- `flutter build apk --debug`
+- `aapt dump badging C:\Biofreq_local\CURRENT\APKS\BioFreq_4.0.50_2135_HLS_streaming_debug_20260512.apk`
 
-`flutter build apk --debug` is blocked by the existing Android project shape:
+Compiled APK:
 
-> Your app is using an unsupported Gradle project.
-
-This is not caused by the HLS changes; it appears before Android compilation starts.
+- `versionName`: `4.0.50`
+- `versionCode`: `2135`
+- Firebase Storage URL is published through `version.json` on `main`.

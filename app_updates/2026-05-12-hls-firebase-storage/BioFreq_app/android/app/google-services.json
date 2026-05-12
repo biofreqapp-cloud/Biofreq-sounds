@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "30683416180",
+    "project_id": "biofreq-app",
+    "storage_bucket": "biofreq-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30683416180:android:5e81d1a58bf36c6ee2f321",
+        "android_client_info": {
+          "package_name": "com.biofreq.oficial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30683416180-hehahifvjtsc4ep3o6fki53p3gn2l9f7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCej7H7QOFpMJurcFVLUGjrbk3CB-o_RO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30683416180-hehahifvjtsc4ep3o6fki53p3gn2l9f7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
