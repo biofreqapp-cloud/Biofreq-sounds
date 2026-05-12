@@ -65,6 +65,36 @@ El script usa:
 3. Si falla, borra `hls_manifest_url` del documento y la app vuelve automaticamente a `url_sonido`.
 4. Cuando el ensayo salga bien, migra el resto por tandas.
 
+## Migracion completa 2026-05-12
+
+Estado final:
+
+- Documentos en `Sonidos`: `20`.
+- Documentos con URL de audio: `19`.
+- Documentos con HLS activo: `19`.
+- Documentos sin URL de audio: `1` (`vBwT6KvzyXwZ6m4vN3sq`).
+- Migrados en esta corrida: `18`.
+- Ya migrado y verificado: `1` (`Limitless`).
+- Errores: `0`.
+
+Verificacion posterior:
+
+- `19/19` manifests respondieron HTTP `200`.
+- `19/19` primeros segmentos respondieron HTTP `200` o `206`.
+- `url_sonido` queda intacto en Firestore como fallback.
+
+Archivos de trazabilidad local:
+
+- `build/hls_migration_20260512/firestore_sonidos_backup_before.json`
+- `build/hls_migration_20260512/firestore_sonidos_backup_after.json`
+- `build/hls_migration_20260512/migration_full.log`
+- `build/hls_migration_20260512/migration_full_report.json`
+- `build/hls_migration_20260512/verification_after.json`
+
+Backup final en USB:
+
+- `D:\Biofreq_backups\BioFreq_HLS_migration_20260512`
+
 ## Siguiente paso de seguridad
 
 Para impedir manifests permanentes, la siguiente fase debe servir playlists por Cloud Function:
