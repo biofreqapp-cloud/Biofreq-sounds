@@ -1,10 +1,10 @@
 {
   "_comentario": "Este archivo vive en la raiz de TU_REPO en GitHub (rama main).",
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
-  "version": "4.0.50",
-  "build_number": 2135,
-  "apk_url": "https://firebasestorage.googleapis.com/v0/b/biofreq-app.firebasestorage.app/o/app_updates%2Fandroid%2FBioFreq_4.0.50_2135_HLS_streaming_release_20260512.apk?alt=media&token=877976ca-1aae-4e74-92ce-9a10953487f9",
-  "changelog_es": "4.0.50+2135 - streaming HLS desde Firebase Storage para cargar sonidos mas rapido",
+  "version": "4.0.51",
+  "build_number": 2136,
+  "apk_url": "https://firebasestorage.googleapis.com/v0/b/biofreq-app.firebasestorage.app/o/app_updates%2Fandroid%2FBioFreq_4.0.51_2136_restore_core_admin_filters_hls_release_20260512.apk?alt=media&token=67f92d68-a92d-468a-9e59-717556ff38aa",
+  "changelog_es": "4.0.51+2136 - restaura compras de tokens, panel Admin y filtros; mantiene streaming HLS",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
   "_reglas": {
     "PATCH build (2.10.1 +51→+52)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
