@@ -3,7 +3,7 @@
   "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
   "version": "4.0.50",
   "build_number": 2135,
-  "apk_url": "https://firebasestorage.googleapis.com/v0/b/biofreq-app.firebasestorage.app/o/app_updates%2Fandroid%2FBioFreq_4.0.50_2135_HLS_streaming_debug_20260512.apk?alt=media&token=95ce13dd-347a-445f-b1b9-4e13d48a19b7",
+  "apk_url": "https://firebasestorage.googleapis.com/v0/b/biofreq-app.firebasestorage.app/o/app_updates%2Fandroid%2FBioFreq_4.0.50_2135_HLS_streaming_release_20260512.apk?alt=media&token=877976ca-1aae-4e74-92ce-9a10953487f9",
   "changelog_es": "4.0.50+2135 - streaming HLS desde Firebase Storage para cargar sonidos mas rapido",
   "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
   "_reglas": {
