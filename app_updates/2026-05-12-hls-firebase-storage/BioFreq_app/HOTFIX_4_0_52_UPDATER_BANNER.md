@@ -27,6 +27,7 @@ En 4.0.50 y 4.0.51 el banner de actualizacion podia terminar usando una URL viej
 
 - `flutter pub get`: OK.
 - `flutter build apk --release`: OK.
+- `flutter test`: OK, 3 pruebas del updater pasan.
 - `aapt dump badging`: `versionName='4.0.52'`, `versionCode='2137'`.
 - Firebase Storage: HTTP 200, `Content-Type: application/vnd.android.package-archive`, `Content-Length: 70995509`.
 - `version.json` publico: `4.0.52`, `build_number: 2137`, `apk_sha256` publicado.
