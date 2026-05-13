@@ -1,15 +1,17 @@
 {
-    "_comentario":  "Este archivo vive en la raíz de TU_REPO en GitHub (rama main).",
-    "_instruccion":  "Edita \u0027version\u0027 y/o \u0027build_number\u0027 y sube. La app lo lee al arrancar y reacciona.",
-    "version":  "4.0.27",
-    "build_number":  2108,
-    "apk_url":  "https://drive.google.com/open?id=1LvV_KlVeGHCzFyV1nCBmoATC80u3geAD\u0026usp=drive_fs",
-    "changelog_es":  "4.0.27+2108 - defensas Firestore y memoria",
-    "config_url":  "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
-    "_reglas":  {
-                    "PATCH build (2.10.1 +51→+52)":  "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
-                    "PATCH semver (2.10.1→2.10.2)":  "Solo sube Z. Misma reacción silenciosa.",
-                    "MINOR (2.Y.z)":  "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
-                    "MAJOR (X.y.z)":  "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con botón de descarga de APK desde apk_url."
-                }
+  "_comentario": "Este archivo vive en la raiz de TU_REPO en GitHub (rama main).",
+  "_instruccion": "Edita 'version' y/o 'build_number' y sube. La app lo lee al arrancar y reacciona.",
+  "_nota_updater": "No apuntar a Play Store. apk_url debe ser enlace directo al APK publicado; la app 4.0.52+ usa version.json antes que Firestore.",
+  "version": "4.0.52",
+  "build_number": 2137,
+  "apk_url": "https://firebasestorage.googleapis.com/v0/b/biofreq-app.firebasestorage.app/o/app_updates%2Fandroid%2FBioFreq_4.0.52_2137_updater_banner_fix_release_20260513.apk?alt=media&token=315ce4cc-e446-4e87-a77d-c83ba618df36",
+  "apk_sha256": "e0c68de31452d157a69f5aad54f19b0f91505b5e5f5174cb14b49d9047c37160",
+  "changelog_es": "4.0.52+2137 - corrige el updater del banner: version.json vuelve a tener prioridad y se bloquean URLs de Play Store.",
+  "config_url": "https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/remote_config.json",
+  "_reglas": {
+    "PATCH build (2.10.1 +51→+52)": "Solo sube build_number. App descarga remote_config.json en background. Usuario no se entera.",
+    "PATCH semver (2.10.1→2.10.2)": "Solo sube Z. Misma reaccion silenciosa.",
+    "MINOR (2.Y.z)": "Sube Y, reinicia Z a 0. App muestra banner cyan persistente con changelog_es. No bloquea.",
+    "MAJOR (X.y.z)": "Sube X, reinicia Y y Z a 0. App muestra pantalla de bloqueo con boton de descarga de APK desde apk_url."
+  }
 }

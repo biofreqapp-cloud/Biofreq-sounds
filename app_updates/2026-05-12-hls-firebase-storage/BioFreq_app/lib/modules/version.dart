@@ -67,6 +67,9 @@ class VersionInfo {
 }
 
 class AppUpdateConfig {
+  // FUENTE OFICIAL DEL BANNER: version.json debe ganar siempre.
+  // No volver a priorizar Firestore/Play Store aqui: Firestore es solo fallback
+  // heredado para Admin/enlaces cuando version.json no trae apk_url.
   static const String _defaultApkUrl =
       'https://raw.githubusercontent.com/biofreqapp-cloud/Biofreq-sounds/main/app-release.apk';
 
@@ -76,7 +79,7 @@ class AppUpdateConfig {
   static String get defaultApkUrl => _defaultApkUrl;
 
   static String get currentApkUrl =>
-      normalizeUrl(_cachedUpdaterUrl) ?? _defaultApkUrl;
+      normalizeUpdaterUrl(_cachedUpdaterUrl) ?? _defaultApkUrl;
 
   static Future<String> load() async {
     if (_loaded) return currentApkUrl;
@@ -86,7 +89,7 @@ class AppUpdateConfig {
           .doc(BioConfig.docApp)
           .get();
       final raw = doc.data()?[BioConfig.campoUrlActualizadorApk]?.toString();
-      final normalized = normalizeUrl(raw);
+      final normalized = normalizeUpdaterUrl(raw);
       if (normalized != null && normalized.isNotEmpty) {
         _cachedUpdaterUrl = normalized;
       }
@@ -98,21 +101,23 @@ class AppUpdateConfig {
   }
 
   static void setCachedUrl(String rawUrl) {
-    final normalized = normalizeUrl(rawUrl);
+    final normalized = normalizeUpdaterUrl(rawUrl);
     if (normalized == null || normalized.isEmpty) return;
     _cachedUpdaterUrl = normalized;
     _loaded = true;
   }
 
   static String resolve([String? remoteUrl]) {
-    final firestoreUrl = normalizeUrl(_cachedUpdaterUrl);
-    if (firestoreUrl != null && firestoreUrl.isNotEmpty) {
-      return firestoreUrl;
-    }
-
-    final versionJsonUrl = normalizeUrl(remoteUrl);
+    // ORDEN CRITICO: el banner usa apk_url de version.json. Firestore no puede
+    // pisarlo porque ahi suelen quedar URLs viejas del updater.
+    final versionJsonUrl = normalizeUpdaterUrl(remoteUrl);
     if (versionJsonUrl != null && versionJsonUrl.isNotEmpty) {
       return versionJsonUrl;
+    }
+
+    final firestoreUrl = normalizeUpdaterUrl(_cachedUpdaterUrl);
+    if (firestoreUrl != null && firestoreUrl.isNotEmpty) {
+      return firestoreUrl;
     }
 
     return _defaultApkUrl;
@@ -159,6 +164,27 @@ class AppUpdateConfig {
     }
 
     return text;
+  }
+
+  static String? normalizeUpdaterUrl(String? rawUrl) {
+    final normalized = normalizeUrl(rawUrl);
+    if (normalized == null || normalized.isEmpty) return null;
+
+    final uri = Uri.tryParse(normalized);
+    if (uri == null) return normalized;
+
+    final scheme = uri.scheme.toLowerCase();
+    final host = uri.host.toLowerCase();
+    final rejectedUpdaterTarget = scheme == 'market' ||
+        host.contains('play.google.com') ||
+        host.contains('onrender.com');
+
+    if (rejectedUpdaterTarget) {
+      debugPrint('[Updater] URL rechazada para APK: $normalized');
+      return null;
+    }
+
+    return normalized;
   }
 }
 
