@@ -1,0 +1,103 @@
+name: biofreq_app
+description: "Motor de Frecuencias Bioenergéticas V2.11 - Cobro Híbrido + Vibración Loop + HttpOverrides + Buffer Agresivo"
+publish_to: 'none'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VERSIÓN: nombre_version+versionCode
+#
+# nombre_version → 2.11.0  (MINOR: 4 mejoras críticas de backend y experiencia)
+# versionCode    → 58
+#
+# Cambios recientes:
+#   1. Cobro híbrido por `costo_uso`:
+#      > 0 → precio fijo override (ej: 70000 tokens).
+#      == 0 → precio automático: duración real del audio en segundos.
+#
+#   2. Vibración Sincronizada Continua:
+#      Loop háptico real vía repeat: 0 (fix: repeat: -1 no loopea en Android).
+#      onPlayerStateChanged sincroniza start/stop con el audio.
+#      Vibration.cancel() en pausa, stop, complete y dispose().
+#
+#   3. Estabilización SSL (HttpOverrides):
+#      MyHttpOverrides con badCertificateCallback = true aplicado en main()
+#      antes de runApp(). Previene bloqueos de GMS en algunos dispositivos.
+#
+#   4. Buffer Agresivo:
+#      stayAwake: true en AudioContextAndroid — el CPU no entra en deep-sleep
+#      durante el streaming de archivos largos (10+ min).
+#      setSource() en _cargarDuracionAudio() precarga el buffer antes del Play.
+#
+# Sin dependencias nuevas — todas las mejoras usan paquetes ya existentes.
+# ─────────────────────────────────────────────────────────────────────────────
+version: 4.0.52+2137
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
+  google_sign_in: 6.2.1   # Fijado — v7.x tiene API incompatible
+
+  just_audio: ^0.10.5      # Streaming HLS/MP3 con precarga real
+  audio_session: ^0.2.3    # Configuracion nativa de sesion de audio
+  video_player: ^2.8.3
+  chewie: ^1.7.4
+
+  dio: ^5.4.0
+  crypto: ^3.0.6                  # SHA-256 para validar integridad del APK descargado
+  url_launcher: ^6.3.0
+  flutter_custom_tabs: ^2.4.0     # MP Checkout Pro — Custom Tabs nativo
+  cupertino_icons: ^1.0.6
+  http: ^1.2.0                    # VersionManager + GeminiMask HTTP calls
+  package_info_plus: ^8.0.0      # Lee version/buildNumber directamente del APK compilado
+                                  # → BioConfig.version se setea en main() automáticamente
+                                  # → nunca más desincronizar pubspec.yaml con el código
+  qr_flutter: ^4.1.0             # QR de referidos para médicos PS
+  share_plus: ^10.0.0            # Compartir QR como imagen PNG
+  path_provider: ^2.1.2          # Directorios temporales para APKs y Recibos
+  local_auth: ^2.2.0             # Biometría para transferencias
+  screenshot: ^3.0.0             # Generación de recibos visuales
+  flutter_localizations:         # Soporte multi-idioma (esencial para calendarios)
+    sdk: flutter
+
+  shared_preferences: ^2.2.0      # Login y ajustes locales
+  flutter_colorpicker: ^1.1.0     # Bio-Scanner y marketing — selector de colores
+  device_info_plus: ^11.5.0       # Sentry — contexto preciso por OEM/modelo/API en fallos de instalacion
+  image_picker: ^1.0.0            # PS — foto de perfil profesional
+  vibration: ^2.0.0               # Mejora 2: loop háptico sincronizado (repeat: 0)
+  open_file: ^3.3.2               # Abre APK con el instalador nativo de Android (sin dialog "abrir con")
+  # ⚠️  REQUERIDO para instalar APKs en Android 8+ — NO eliminar
+  # Pide permiso "Instalar apps desconocidas" antes de abrir el instalador.
+  # Sin este paquete → Permission denied: REQUEST_INSTALL_PACKAGES
+  permission_handler: ^11.3.0
+
+  # ── Notificaciones Push ───────────────────────────────────────────────────
+  # ⚠️  firebase_messaging: NUNCA eliminar — es el sistema de notificaciones
+  #     push de toda la app. Guarda el token FCM en Firestore y recibe pushes.
+  # ⚠️  flutter_local_notifications: muestra notificaciones en primer plano
+  #     (cuando la app está abierta). Sin esto las pushes no se ven en foreground.
+  firebase_messaging: ^15.1.3
+  flutter_local_notifications: ^18.0.1
+  sentry_flutter: 9.16.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    # ════════════════════════════════════════════════════════════════
+    # ⚠️  LOGO — assets/logo.png DEBE estar declarado aquí o Flutter
+    #     lo ignora y muestra el ícono genérico.
+    #     NUNCA eliminar esta línea. El archivo está en:
+    #     C:\biofreq_app\assets\logo.png
+    # ════════════════════════════════════════════════════════════════
+    - assets/logo.png
+    - assets/certs/cert.pem    # Certificado SSL del Alembique (CN=biofreq.local)
